@@ -18,6 +18,11 @@ const titleInput = document.querySelector('#title');
 const authorInput = document.querySelector("#author");
 const pagesInput = document.querySelector("#pages");
 const readornotInput = document.querySelector("#readornot");
+const cancelBtn = document.querySelector("#cancelBtn");
+
+cancelBtn.addEventListener("click", () => {
+    dialog.close();}
+)
 
 showButton.addEventListener("click", () => {
     titleInput.value = '';
@@ -43,7 +48,7 @@ form.addEventListener('submit', (event) => {
 function displayLibrary() {
     const container = document.querySelector(".container");
     container.innerHTML = '';
-    myLibrary.forEach(function(testBook1) {
+    myLibrary.forEach(function(testBook1, index) {
         const card = document.createElement("div");
         card.className = "card";
     
@@ -56,21 +61,31 @@ function displayLibrary() {
     
         const author = document.createElement("div");
         author.className = "card-info";
-        author.textContent = testBook1.author;
+        author.textContent = `Author: ${testBook1.author}`;
         card.appendChild(author);
     
         const pages = document.createElement("div");
         pages.className = "card-info";
-        pages.textContent = testBook1.pages;
+        pages.textContent = `Pages: ${testBook1.pages}`;
         card.appendChild(pages);
     
         const readYN = document.createElement("div");
         readYN.className = "card-info";
-        readYN.textContent = testBook1.readornot;
+        readYN.textContent = `Read: ${testBook1.readornot}`;
         card.appendChild(readYN);
-    });
+
+       const deleteButton = document.createElement("button");
+       deleteButton.textContent = "Delete";
+       deleteButton.className = "delete-button";
+       deleteButton.addEventListener("click", () => deleteBook(index));
+       card.appendChild(deleteButton);
+   });
 }
 
+function deleteBook(index) {
+   myLibrary.splice(index, 1);
+   displayLibrary();
+}
 
 
   
