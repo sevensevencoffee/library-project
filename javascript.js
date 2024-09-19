@@ -34,6 +34,12 @@ class BookUI {
 
         this.form.addEventListener('submit', (event) => {
             event.preventDefault(); 
+            // Validation: Check if all fields are filled
+            if (!this.titleInput.value || !this.authorInput.value || !this.pagesInput.value) {
+                alert("Please fill in all fields.");
+                return; // Stop submission if validation fails
+            }
+
             const newBook = new Book(
                 this.titleInput.value,
                 this.authorInput.value,
